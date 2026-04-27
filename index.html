@@ -1,685 +1,1040 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --gold: #E8B84B;
-    --gold-dim: #c49a30;
-    --dark: #0d0f14;
-    --dark2: #13161d;
-    --dark3: #1a1e27;
-    --border: rgba(232,184,75,0.18);
-    --border-soft: rgba(255,255,255,0.07);
-    --text: #e8eaf0;
-    --text-muted: #8a90a0;
-    --text-dim: #555b6e;
-    --accent-teal: #3DD9B3;
-    --accent-blue: #5B8FE8;
-    --radius: 12px;
-    --radius-sm: 8px;
-  }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Space Grotesk', sans-serif;
-    background: var(--dark);
-    color: var(--text);
-    font-size: 15px;
-    line-height: 1.65;
-    min-height: 100vh;
-  }
-  /* NAV */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(13,15,20,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 0.5px solid var(--border);
-    padding: 0 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 60px;
-  }
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-size: 20px; font-weight: 800;
-    letter-spacing: 0.02em;
-    color: var(--gold);
-    display: flex; align-items: center; gap: 8px;
-  }
-  .nav-logo span { color: var(--text); font-weight: 400; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    color: var(--text-muted); text-decoration: none; font-size: 13px;
-    font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-cta {
-    background: var(--gold); color: var(--dark);
-    border: none; border-radius: var(--radius-sm);
-    padding: 8px 20px; font-family: inherit; font-size: 13px; font-weight: 600;
-    cursor: pointer; transition: background 0.2s;
-    text-transform: uppercase; letter-spacing: 0.05em;
-  }
-  .nav-cta:hover { background: #f5cc60; }
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Star Electronics | Engineering Portfolio &amp; Services</title>
+  <meta name="description" content="Professional CAD design, electrical engineering, BIM, PCB layout, and technical documentation services. AutoCAD, SolidWorks, Revit, Altium Designer."/>
+  <style>
+    :root {
+      --white:        #ffffff;
+      --offwhite:     #f4f8fc;
+      --blue-pale:    #eaf4fb;
+      --blue-light:   #c8e6f7;
+      --blue-mid:     #8ec9e8;
+      --blue:         #4fa8d5;
+      --blue-deep:    #2779a7;
+      --blue-dark:    #15526e;
+      --text:         #1c3a50;
+      --text-mid:     #3a6a8a;
+      --text-dim:     #7aabca;
+      --border:       #bee0f3;
+      --border-light: #dff0fa;
+      --shadow:       0 2px 20px rgba(46,134,181,0.09);
+      --shadow-hover: 0 6px 32px rgba(46,134,181,0.17);
+    }
 
-  /* SECTIONS */
-  section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-  /* HERO */
-  .hero-section {
-    max-width: 100%; padding: 0;
-    background: linear-gradient(135deg, #0d0f14 0%, #13161d 40%, #0d1420 100%);
-    border-bottom: 0.5px solid var(--border);
-    position: relative; overflow: hidden;
-  }
-  .hero-section::before {
-    content: '';
-    position: absolute; top: -80px; right: -80px;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(232,184,75,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-inner {
-    max-width: 1100px; margin: 0 auto;
-    padding: 6rem 2rem 5rem;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
-  }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: rgba(232,184,75,0.1); border: 0.5px solid rgba(232,184,75,0.3);
-    border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 500;
-    color: var(--gold); letter-spacing: 0.06em; text-transform: uppercase;
-    margin-bottom: 1.5rem;
-  }
-  .hero-badge::before { content: '⚡'; font-size: 11px; }
-  h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2.4rem, 5vw, 3.8rem);
-    font-weight: 800; line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.25rem;
-  }
-  h1 em { color: var(--gold); font-style: normal; }
-  .hero-sub {
-    font-size: 16px; color: var(--text-muted); line-height: 1.2;
-    margin-bottom: 2rem; max-width: 480px;
-  }
-  .hero-badges-row {
-    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2rem;
-  }
-  .pill {
-    background: rgba(255,255,255,0.05); border: 0.5px solid var(--border-soft);
-    border-radius: 20px; padding: 5px 14px; font-size: 12px; color: var(--text-muted);
-  }
-  .pill.teal { background: rgba(61,217,179,0.08); border-color: rgba(61,217,179,0.25); color: var(--accent-teal); }
-  .pill.blue { background: rgba(91,143,232,0.08); border-color: rgba(91,143,232,0.25); color: var(--accent-blue); }
-  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--gold); color: var(--dark);
-    border: none; border-radius: var(--radius-sm);
-    padding: 12px 28px; font-family: inherit; font-size: 14px; font-weight: 700;
-    cursor: pointer; transition: all 0.2s;
-    text-transform: uppercase; letter-spacing: 0.05em;
-  }
-  .btn-primary:hover { background: #f5cc60; transform: translateY(-1px); }
-  .btn-ghost {
-    background: transparent; color: var(--text);
-    border: 0.5px solid var(--border); border-radius: var(--radius-sm);
-    padding: 12px 28px; font-family: inherit; font-size: 14px; font-weight: 500;
-    cursor: pointer; transition: all 0.2s;
-  }
-  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+    body {
+      background: var(--white);
+      color: var(--text);
+      font-family: 'Times New Roman', Times, serif;
+      line-height: 1.78;
+      overflow-x: hidden;
+    }
 
-  /* CIRCUIT ART */
-  .hero-art {
-    position: relative; display: flex; align-items: center; justify-content: center;
-  }
-  .circuit-svg { width: 100%; max-width: 380px; opacity: 0.85; }
+    /* ── FLOATING STARS ── */
+    .stars-bg {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .star {
+      position: absolute;
+      color: var(--blue-light);
+      opacity: 0;
+      animation: twinkle var(--d,4s) var(--delay,0s) infinite;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity:0; transform:scale(0.6); }
+      50%      { opacity:0.6; transform:scale(1); }
+    }
 
-  /* TRUST BAR */
-  .trust-bar {
-    max-width: 100%; padding: 1.5rem 2rem;
-    border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border);
-    background: var(--dark2);
-    display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap;
-  }
-  .trust-item {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 13px; color: var(--text-muted);
-  }
-  .trust-icon { color: var(--gold); font-size: 16px; }
+    /* ── NAV ── */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:200;
+      height:62px; display:flex; align-items:center; justify-content:space-between;
+      padding:0 3rem;
+      background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);
+      box-shadow:0 1px 14px rgba(46,134,181,0.07);
+    }
+    .nav-logo {
+      font-family:'Times New Roman',Times,serif;
+      font-size:1.1rem; font-weight:bold;
+      letter-spacing:0.09em; color:var(--blue-dark);
+      text-decoration:none; display:flex; align-items:center; gap:0.45rem;
+    }
+    .nav-logo .logo-star { color:var(--blue); }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a {
+      font-family:'Times New Roman',Times,serif;
+      font-size:0.875rem; letter-spacing:0.03em;
+      color:var(--text-mid); text-decoration:none; font-style:italic;
+      transition:color 0.2s;
+    }
+    .nav-links a:hover { color:var(--blue-deep); }
+    .nav-cta {
+      font-family:'Times New Roman',Times,serif;
+      font-size:0.8rem; letter-spacing:0.08em;
+      color:var(--white); background:var(--blue-deep);
+      border:none; padding:0.42rem 1.3rem;
+      cursor:pointer; text-decoration:none;
+      transition:background 0.2s;
+    }
+    .nav-cta:hover { background:var(--blue-dark); }
 
-  /* HEADINGS */
-  h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    font-weight: 800; letter-spacing: -0.02em; line-height: 1.15;
-    margin-bottom: 0.5rem;
-  }
-  h2 em { color: var(--gold); font-style: normal; }
-  .section-label {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem;
-  }
-  .section-sub { color: var(--text-muted); font-size: 15px; margin-bottom: 3rem; max-width: 560px; }
+    /* ── HERO ── */
+    #hero {
+      position:relative; min-height:100vh;
+      display:flex; flex-direction:column; justify-content:center;
+      padding:8rem 3rem 5rem;
+      background:linear-gradient(150deg, var(--white) 0%, var(--blue-pale) 55%, var(--blue-light) 100%);
+      overflow:hidden; z-index:1;
+    }
+    .hero-watermark {
+      position:absolute; right:-60px; top:50%;
+      transform:translateY(-50%);
+      font-size:clamp(240px,34vw,450px);
+      color:rgba(142,201,232,0.18); line-height:1;
+      pointer-events:none; user-select:none;
+      animation:slowSpin 80s linear infinite;
+    }
+    @keyframes slowSpin {
+      from { transform:translateY(-50%) rotate(0deg); }
+      to   { transform:translateY(-50%) rotate(360deg); }
+    }
+    .hero-eyebrow {
+      font-size:0.75rem; letter-spacing:0.3em; color:var(--blue-deep);
+      text-transform:uppercase; margin-bottom:1.2rem;
+      opacity:0; animation:fadeUp 0.8s 0.2s forwards;
+    }
+    h1.hero-title {
+      font-family:'Times New Roman',Times,serif; font-weight:bold;
+      font-size:clamp(2.8rem,7vw,5.8rem); line-height:1.08;
+      color:var(--blue-dark); max-width:800px;
+      opacity:0; animation:fadeUp 0.9s 0.35s forwards;
+    }
+    h1.hero-title em { color:var(--blue-deep); font-style:italic; }
+    .hero-rule {
+      width:72px; height:2px; background:var(--blue);
+      margin:1.8rem 0;
+      opacity:0; animation:fadeUp 0.8s 0.5s forwards;
+    }
+    .hero-subtitle {
+      font-size:1.08rem; color:var(--text-mid); max-width:510px;
+      font-style:italic;
+      opacity:0; animation:fadeUp 0.9s 0.6s forwards;
+    }
+    .hero-pills {
+      display:flex; flex-wrap:wrap; gap:0.45rem; margin-top:2rem;
+      opacity:0; animation:fadeUp 0.9s 0.75s forwards;
+    }
+    .pill {
+      font-size:0.73rem; letter-spacing:0.06em; color:var(--blue-dark);
+      background:rgba(255,255,255,0.78); border:1px solid var(--border);
+      padding:0.25rem 0.8rem;
+    }
+    .hero-ctas {
+      display:flex; gap:1rem; margin-top:2.5rem; flex-wrap:wrap;
+      opacity:0; animation:fadeUp 0.9s 0.9s forwards;
+    }
+    .btn-primary {
+      font-family:'Times New Roman',Times,serif;
+      font-size:0.87rem; letter-spacing:0.09em;
+      color:var(--white); background:var(--blue-deep);
+      border:none; padding:0.85rem 2.2rem;
+      cursor:pointer; text-decoration:none; transition:background 0.2s;
+    }
+    .btn-primary:hover { background:var(--blue-dark); }
+    .btn-outline {
+      font-family:'Times New Roman',Times,serif;
+      font-size:0.87rem; letter-spacing:0.09em;
+      color:var(--blue-deep); background:transparent;
+      border:1.5px solid var(--blue); padding:0.85rem 2.2rem;
+      cursor:pointer; text-decoration:none; transition:background 0.2s;
+    }
+    .btn-outline:hover { background:var(--blue-pale); }
 
-  /* SERVICES */
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border-soft); border: 0.5px solid var(--border-soft); border-radius: var(--radius); overflow: hidden; }
-  .service-card {
-    background: var(--dark2); padding: 1.75rem;
-    transition: background 0.2s;
-    cursor: default;
-  }
-  .service-card:hover { background: var(--dark3); }
-  .service-icon {
-    width: 44px; height: 44px; border-radius: var(--radius-sm);
-    background: rgba(232,184,75,0.1); border: 0.5px solid rgba(232,184,75,0.2);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px; margin-bottom: 1rem;
-  }
-  .service-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 0.4rem; }
-  .service-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem; }
-  .service-price {
-    font-size: 22px; font-weight: 700; color: var(--gold);
-    font-family: 'Syne', sans-serif;
-  }
-  .service-price span { font-size: 12px; font-weight: 400; color: var(--text-dim); font-family: inherit; }
-  .service-tag {
-    display: inline-block; margin-top: 8px;
-    font-size: 11px; padding: 3px 10px; border-radius: 20px;
-    background: rgba(61,217,179,0.08); color: var(--accent-teal);
-    border: 0.5px solid rgba(61,217,179,0.2);
-  }
+    /* ── SHARED ── */
+    section { position:relative; z-index:1; }
+    .section-inner { max-width:1080px; margin:0 auto; padding:5.5rem 2.5rem; }
 
-  /* PRODUCTS */
-  .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-  .product-card {
-    background: var(--dark2); border: 0.5px solid var(--border-soft);
-    border-radius: var(--radius); padding: 1.5rem;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .product-card:hover { border-color: rgba(232,184,75,0.3); transform: translateY(-2px); }
-  .product-card.featured { border-color: rgba(232,184,75,0.3); background: linear-gradient(135deg, #13161d, #1a1620); }
-  .product-badge {
-    font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 3px 10px; border-radius: 20px; margin-bottom: 1rem; display: inline-block;
-  }
-  .badge-gold { background: rgba(232,184,75,0.12); color: var(--gold); border: 0.5px solid rgba(232,184,75,0.3); }
-  .badge-blue { background: rgba(91,143,232,0.1); color: var(--accent-blue); border: 0.5px solid rgba(91,143,232,0.25); }
-  .badge-teal { background: rgba(61,217,179,0.08); color: var(--accent-teal); border: 0.5px solid rgba(61,217,179,0.2); }
-  .product-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 0.5rem; }
-  .product-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 1.25rem; }
-  .product-price { font-size: 20px; font-weight: 700; color: var(--text); font-family: 'Syne', sans-serif; }
-  .product-price .old { font-size: 13px; color: var(--text-dim); text-decoration: line-through; margin-right: 6px; font-family: inherit; font-weight: 400; }
+    .section-tag {
+      font-size:0.7rem; letter-spacing:0.3em; color:var(--blue-deep);
+      text-transform:uppercase; margin-bottom:0.6rem;
+      display:flex; align-items:center; gap:0.45rem;
+    }
+    .section-tag::before,.section-tag::after { content:'&#9733;'; font-size:0.5rem; color:var(--blue-mid); }
 
-  /* ABOUT */
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-  .about-photo {
-    background: var(--dark3); border-radius: var(--radius);
-    border: 0.5px solid var(--border);
-    aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden;
-  }
-  .about-initials {
-    font-family: 'Syne', sans-serif; font-size: 72px; font-weight: 800;
-    color: rgba(232,184,75,0.15); line-height: 1;
-  }
-  .about-photo-label {
-    position: absolute; bottom: 1rem; left: 1rem; right: 1rem;
-    background: rgba(13,15,20,0.85); border-radius: var(--radius-sm);
-    padding: 10px 14px; font-size: 13px; color: var(--text-muted);
-    border: 0.5px solid var(--border);
-  }
-  .about-photo-label strong { color: var(--text); display: block; font-size: 14px; }
-  .stat-row { display: flex; gap: 2rem; margin: 2rem 0; }
-  .stat-item { }
-  .stat-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--gold); line-height: 1; }
-  .stat-label { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
-  .bilingual-flag {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(255,255,255,0.04); border: 0.5px solid var(--border-soft);
-    border-radius: var(--radius-sm); padding: 8px 14px; font-size: 13px; color: var(--text-muted);
-    margin-top: 1.5rem;
-  }
+    h2.sec-heading {
+      font-family:'Times New Roman',Times,serif; font-weight:bold;
+      font-size:clamp(1.7rem,3.5vw,2.75rem); line-height:1.15;
+      color:var(--blue-dark); margin-bottom:0.7rem;
+    }
+    h2.sec-heading em { font-style:italic; color:var(--blue-deep); }
+    .sec-rule { width:48px; height:2px; background:var(--blue); margin-bottom:1.1rem; }
+    .sec-lead { font-size:0.97rem; color:var(--text-mid); max-width:530px; font-style:italic; margin-bottom:2.8rem; }
 
-  /* FUTURE */
-  .future-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-  .future-card {
-    background: var(--dark2); border: 0.5px solid var(--border-soft);
-    border-radius: var(--radius); padding: 1.5rem;
-    position: relative;
-  }
-  .future-card::before {
-    content: 'COMING SOON';
-    position: absolute; top: 1rem; right: 1rem;
-    font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
-    color: var(--text-dim); border: 0.5px solid var(--border-soft);
-    border-radius: 20px; padding: 2px 8px;
-  }
-  .future-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 0.4rem; margin-top: 0.5rem; }
-  .future-card p { font-size: 13px; color: var(--text-muted); }
-  .future-num {
-    font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800;
-    color: rgba(232,184,75,0.08); line-height: 1; margin-bottom: 0.25rem;
-  }
+    /* ── ABOUT ── */
+    #about { background:var(--offwhite); border-top:1px solid var(--border-light); }
+    .about-grid { display:grid; grid-template-columns:1.1fr 0.9fr; gap:4rem; align-items:start; }
+    .about-text p { margin-bottom:1rem; font-size:0.97rem; }
+    .skill-bars { margin-top:2rem; display:flex; flex-direction:column; gap:1.1rem; }
+    .sk-header {
+      display:flex; justify-content:space-between;
+      font-size:0.77rem; color:var(--text-mid); font-style:italic;
+      margin-bottom:0.32rem;
+    }
+    .sk-track { height:3px; background:var(--border); }
+    .sk-fill { height:100%; background:linear-gradient(90deg,var(--blue),var(--blue-deep)); transition:width 1.3s cubic-bezier(0.16,1,0.3,1); }
+    .stat-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .stat-box {
+      background:var(--white); border:1px solid var(--border);
+      padding:1.3rem; text-align:center; box-shadow:var(--shadow);
+    }
+    .stat-num { font-family:'Times New Roman',Times,serif; font-size:2.1rem; font-weight:bold; color:var(--blue-deep); line-height:1; }
+    .stat-lbl { font-size:0.68rem; letter-spacing:0.1em; color:var(--text-dim); text-transform:uppercase; margin-top:0.28rem; font-style:italic; }
+    .affil-box {
+      background:var(--white); border:1px solid var(--border);
+      padding:1.4rem; margin-top:1rem;
+    }
+    .affil-lbl { font-size:0.68rem; letter-spacing:0.12em; color:var(--text-dim); text-transform:uppercase; font-style:italic; margin-bottom:0.7rem; }
+    .affil-item {
+      font-size:0.88rem; color:var(--blue-dark);
+      border-left:2px solid var(--blue); padding-left:0.8rem;
+      margin-bottom:0.5rem;
+    }
+    .affil-item:last-child { margin-bottom:0; }
 
-  /* BLOG PREVIEW */
-  .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-  .blog-card {
-    background: var(--dark2); border: 0.5px solid var(--border-soft);
-    border-radius: var(--radius); overflow: hidden;
-    transition: border-color 0.2s;
-  }
-  .blog-card:hover { border-color: rgba(232,184,75,0.25); }
-  .blog-thumb {
-    height: 120px; background: var(--dark3);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 36px; border-bottom: 0.5px solid var(--border-soft);
-  }
-  .blog-body { padding: 1.25rem; }
-  .blog-meta { font-size: 11px; color: var(--text-dim); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
-  .blog-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 0.4rem; line-height: 1.4; }
-  .blog-card p { font-size: 12px; color: var(--text-muted); }
+    /* ── SERVICES ── */
+    #services { background:var(--white); border-top:1px solid var(--border-light); }
+    .services-categories { display:flex; flex-direction:column; gap:3.5rem; }
+    .svc-cat-title {
+      font-family:'Times New Roman',Times,serif; font-weight:bold;
+      font-size:1.15rem; color:var(--blue-dark); letter-spacing:0.04em;
+      border-bottom:1.5px solid var(--border); padding-bottom:0.5rem;
+      margin-bottom:1.5rem;
+      display:flex; align-items:center; gap:0.5rem;
+    }
+    .svc-cat-title .cat-star { color:var(--blue); font-size:0.85rem; }
+    .svc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:1.1rem; }
+    .svc-card {
+      background:var(--offwhite); border:1px solid var(--border-light);
+      padding:1.45rem; transition:border-color 0.2s,box-shadow 0.2s,background 0.2s;
+    }
+    .svc-card:hover { border-color:var(--blue); background:var(--white); box-shadow:var(--shadow-hover); }
+    h4.svc-title { font-family:'Times New Roman',Times,serif; font-weight:bold; font-size:0.98rem; color:var(--blue-dark); margin-bottom:0.5rem; }
+    .svc-desc { font-size:0.84rem; color:var(--text-mid); font-style:italic; line-height:1.65; }
+    .svc-tools { display:flex; flex-wrap:wrap; gap:0.32rem; margin-top:0.85rem; }
+    .svc-tool { font-size:0.62rem; letter-spacing:0.06em; color:var(--blue-deep); border:1px solid var(--border); padding:0.1rem 0.42rem; background:var(--white); }
 
-  /* PRICING CALLOUT */
-  .pricing-callout {
-    background: linear-gradient(135deg, rgba(232,184,75,0.06), rgba(232,184,75,0.02));
-    border: 0.5px solid rgba(232,184,75,0.2);
-    border-radius: var(--radius);
-    padding: 2.5rem; text-align: center; margin: 3rem 0 0;
-  }
-  .pricing-callout h3 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 0.75rem; }
-  .pricing-callout p { color: var(--text-muted); font-size: 14px; margin-bottom: 1.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    /* ── PORTFOLIO ── */
+    #portfolio { background:var(--offwhite); border-top:1px solid var(--border-light); }
+    .portfolio-orgs { display:flex; flex-direction:column; gap:4rem; }
+    .org-header {
+      display:flex; align-items:baseline; gap:1rem;
+      margin-bottom:1.5rem; padding-bottom:0.55rem;
+      border-bottom:1.5px solid var(--border);
+    }
+    h3.org-name { font-family:'Times New Roman',Times,serif; font-weight:bold; font-size:1.28rem; color:var(--blue-dark); letter-spacing:0.03em; }
+    .org-type { font-size:0.77rem; font-style:italic; color:var(--text-dim); letter-spacing:0.05em; }
+    .proj-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(278px,1fr)); gap:1.2rem; }
+    .proj-card {
+      background:var(--white); border:1px solid var(--border-light);
+      overflow:hidden; transition:border-color 0.2s,box-shadow 0.2s;
+    }
+    .proj-card:hover { border-color:var(--blue); box-shadow:var(--shadow-hover); }
+    .proj-thumb {
+      height:158px;
+      background:linear-gradient(135deg,var(--blue-pale),var(--blue-light));
+      display:flex; align-items:center; justify-content:center;
+      position:relative; overflow:hidden;
+    }
+    .proj-thumb svg { opacity:0.55; transition:opacity 0.2s; }
+    .proj-card:hover .proj-thumb svg { opacity:0.75; }
+    .proj-thumb-lbl {
+      position:absolute; bottom:0.5rem; left:0.7rem;
+      font-size:0.58rem; letter-spacing:0.14em; color:var(--blue-dark);
+      text-transform:uppercase; font-style:italic;
+      background:rgba(255,255,255,0.72); padding:0.1rem 0.4rem;
+    }
+    .proj-body { padding:1.2rem; }
+    h4.proj-title { font-family:'Times New Roman',Times,serif; font-weight:bold; font-size:0.97rem; color:var(--blue-dark); margin-bottom:0.42rem; }
+    .proj-desc { font-size:0.83rem; color:var(--text-mid); font-style:italic; line-height:1.62; }
+    .proj-tags { display:flex; flex-wrap:wrap; gap:0.32rem; margin-top:0.75rem; }
+    .proj-tag { font-size:0.59rem; letter-spacing:0.06em; color:var(--blue-deep); border:1px solid var(--border); padding:0.09rem 0.38rem; background:var(--offwhite); }
 
-  /* CONTACT */
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-  .contact-form { display: flex; flex-direction: column; gap: 14px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .form-field { display: flex; flex-direction: column; gap: 6px; }
-  .form-field label { font-size: 12px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
-  .form-field input, .form-field textarea, .form-field select {
-    background: var(--dark3); border: 0.5px solid var(--border);
-    border-radius: var(--radius-sm); padding: 10px 14px;
-    font-family: inherit; font-size: 14px; color: var(--text);
-    transition: border-color 0.2s; outline: none;
-  }
-  .form-field input:focus, .form-field textarea:focus { border-color: var(--gold); }
-  .form-field textarea { resize: vertical; min-height: 100px; }
-  .contact-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 1rem; }
-  .contact-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 1rem; font-size: 14px; color: var(--text-muted); }
-  .contact-item-icon { color: var(--gold); font-size: 16px; margin-top: 1px; }
+    /* ── BLOG ── */
+    #blog { background:var(--white); border-top:1px solid var(--border-light); }
+    .blog-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(288px,1fr)); gap:1.4rem; }
+    .blog-card {
+      border:1px solid var(--border-light); padding:1.75rem;
+      background:var(--offwhite); transition:border-color 0.2s,box-shadow 0.2s;
+    }
+    .blog-card:hover { border-color:var(--blue); box-shadow:var(--shadow-hover); }
+    .blog-cat {
+      display:inline-block; font-size:0.6rem; letter-spacing:0.1em;
+      color:var(--blue-deep); border:1px solid var(--border);
+      padding:0.09rem 0.42rem; text-transform:uppercase; background:var(--white); margin-bottom:0.75rem;
+    }
+    .blog-date { font-size:0.68rem; letter-spacing:0.12em; color:var(--text-dim); font-style:italic; margin-bottom:0.55rem; }
+    h4.blog-title { font-family:'Times New Roman',Times,serif; font-weight:bold; font-size:1.03rem; color:var(--blue-dark); margin-bottom:0.55rem; line-height:1.38; }
+    .blog-excerpt { font-size:0.84rem; color:var(--text-mid); font-style:italic; line-height:1.68; }
+    .blog-more {
+      display:inline-block; margin-top:0.95rem;
+      font-size:0.73rem; letter-spacing:0.08em; color:var(--blue-deep);
+      text-decoration:none; text-transform:uppercase;
+      border-bottom:1px solid var(--blue-mid); padding-bottom:1px;
+      transition:color 0.2s;
+    }
+    .blog-more:hover { color:var(--blue-dark); }
 
-  /* FOOTER */
-  footer {
-    background: var(--dark2); border-top: 0.5px solid var(--border);
-    padding: 2rem; text-align: center;
-  }
-  footer p { font-size: 13px; color: var(--text-dim); }
-  footer strong { color: var(--gold); }
+    /* ── PROCESS ── */
+    #process { background:var(--blue-pale); border-top:1px solid var(--border); }
+    .process-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(178px,1fr)); }
+    .proc-step {
+      padding:2rem 1.4rem; border-right:1px solid var(--border);
+    }
+    .proc-step:last-child { border-right:none; }
+    .proc-num { font-family:'Times New Roman',Times,serif; font-size:2.5rem; font-weight:bold; color:var(--blue-light); line-height:1; margin-bottom:0.55rem; }
+    h4.proc-title { font-family:'Times New Roman',Times,serif; font-weight:bold; font-size:0.95rem; color:var(--blue-dark); margin-bottom:0.42rem; }
+    .proc-desc { font-size:0.83rem; color:var(--text-mid); font-style:italic; line-height:1.62; }
 
-  /* TABS */
-  .tab-bar { display: flex; gap: 4px; border-bottom: 0.5px solid var(--border-soft); margin-bottom: 2.5rem; }
-  .tab {
-    padding: 10px 20px; font-size: 13px; font-weight: 500; cursor: pointer;
-    color: var(--text-muted); border-bottom: 2px solid transparent;
-    transition: color 0.2s; text-transform: uppercase; letter-spacing: 0.05em;
-    font-family: inherit; background: none; border-left: none; border-right: none; border-top: none;
-  }
-  .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
+    /* ── CONTACT ── */
+    #contact { background:var(--offwhite); border-top:1px solid var(--border-light); }
+    .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+    .contact-form { display:flex; flex-direction:column; gap:0.95rem; }
+    .form-group { display:flex; flex-direction:column; gap:0.32rem; }
+    .form-label { font-size:0.7rem; letter-spacing:0.1em; color:var(--text-mid); text-transform:uppercase; font-style:italic; }
+    .form-input,.form-select,.form-textarea {
+      background:var(--white); border:1px solid var(--border);
+      color:var(--text); font-family:'Times New Roman',Times,serif;
+      font-size:0.9rem; padding:0.68rem 0.88rem;
+      outline:none; transition:border-color 0.2s; width:100%;
+    }
+    .form-input:focus,.form-select:focus,.form-textarea:focus { border-color:var(--blue-deep); }
+    .form-select { appearance:none; cursor:pointer; }
+    .form-textarea { min-height:118px; resize:vertical; font-style:italic; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:0.95rem; }
+    .contact-info { display:flex; flex-direction:column; gap:1.6rem; }
+    .ci-item { display:flex; gap:0.9rem; align-items:flex-start; }
+    .ci-icon {
+      width:36px; height:36px; border:1px solid var(--border);
+      background:var(--white); display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    }
+    .ci-icon svg { width:15px; height:15px; stroke:var(--blue-deep); fill:none; stroke-width:1.5; }
+    .ci-lbl { font-size:0.66rem; letter-spacing:0.1em; color:var(--text-dim); text-transform:uppercase; font-style:italic; margin-bottom:0.18rem; }
+    .ci-val { font-size:0.92rem; color:var(--blue-dark); }
+    .linkedin-box {
+      background:var(--white); border:1px solid var(--border);
+      padding:1.05rem 1.35rem;
+      display:flex; align-items:center; gap:0.9rem;
+      text-decoration:none; transition:border-color 0.2s,box-shadow 0.2s;
+    }
+    .linkedin-box:hover { border-color:#0a66c2; box-shadow:0 4px 18px rgba(10,102,194,0.12); }
+    .li-icon { width:32px; height:32px; background:#0a66c2; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .li-icon svg { width:17px; height:17px; fill:white; }
+    .li-lbl { font-size:0.62rem; letter-spacing:0.1em; color:var(--text-dim); text-transform:uppercase; font-style:italic; margin-bottom:0.17rem; }
+    .li-name { font-size:0.93rem; color:var(--blue-dark); font-weight:bold; }
+    .github-box { background:var(--white); border:1px solid var(--border); padding:1.05rem 1.35rem; }
+    .gh-lbl { font-size:0.62rem; letter-spacing:0.1em; color:var(--text-dim); text-transform:uppercase; font-style:italic; margin-bottom:0.28rem; }
+    .gh-url { font-size:0.93rem; color:var(--blue-deep); font-weight:bold; }
+    .gh-note { font-size:0.78rem; color:var(--text-dim); font-style:italic; margin-top:0.25rem; }
 
-  @media (max-width: 700px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
-    .hero-art { display: none; }
-    .about-grid { grid-template-columns: 1fr; }
-    .contact-grid { grid-template-columns: 1fr; }
-    .form-row { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
-  }
-</style>
+    /* ── FOOTER ── */
+    footer {
+      background:var(--blue-dark); color:rgba(255,255,255,0.7);
+      padding:2rem 3rem; display:flex; align-items:center;
+      justify-content:space-between; flex-wrap:wrap; gap:1rem;
+      position:relative; z-index:1;
+    }
+    .footer-logo { font-family:'Times New Roman',Times,serif; font-size:0.98rem; color:var(--white); letter-spacing:0.1em; }
+    .footer-copy { font-size:0.73rem; font-style:italic; }
+    .footer-links { display:flex; gap:1.4rem; }
+    .footer-links a { font-size:0.73rem; color:rgba(255,255,255,0.6); text-decoration:none; font-style:italic; transition:color 0.2s; }
+    .footer-links a:hover { color:var(--white); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .reveal { opacity:0; transform:translateY(18px); transition:opacity 0.65s, transform 0.65s; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:768px) {
+      .nav-links { display:none; }
+      .about-grid,.contact-grid { grid-template-columns:1fr; gap:2rem; }
+      .form-row { grid-template-columns:1fr; }
+      .process-steps { grid-template-columns:1fr; }
+      .proc-step { border-right:none; border-bottom:1px solid var(--border); }
+      .proc-step:last-child { border-bottom:none; }
+      footer { flex-direction:column; text-align:center; }
+      .hero-watermark { right:-100px; }
+    }
+
+    ::-webkit-scrollbar { width:5px; }
+    ::-webkit-scrollbar-track { background:var(--offwhite); }
+    ::-webkit-scrollbar-thumb { background:var(--blue-mid); }
+    ::-webkit-scrollbar-thumb:hover { background:var(--blue-deep); }
+  </style>
+</head>
+<body>
+
+<div class="stars-bg" id="starsBg"></div>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">⭐ Star<span> Electronics</span></div>
+  <a href="#hero" class="nav-logo">
+    <span class="logo-star">&#9733;</span> Star Electronics
+  </a>
   <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#products">Products</a></li>
     <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#blog">Blog</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
+  <a href="#contact" class="nav-cta">Hire Me</a>
 </nav>
 
 <!-- HERO -->
-<div class="hero-section">
-  <div class="hero-inner">
-    <div>
-      <div class="hero-badge">Global Remote Engineering Services</div>
-      <h1>Precision Electronics, <em>Built for You.</em></h1>
-      <p class="hero-sub">Professional circuit design, PCB layout, and BOM consulting — delivered remotely anywhere in the world. Affordable, reliable, and engineer-led.</p>
-      <div class="hero-badges-row">
-        <span class="pill teal">🌎 Global Remote</span>
-        <span class="pill blue">🇺🇸 🇲🇽 Bilingual</span>
-        <span class="pill">EE Student · UTEP</span>
-        <span class="pill">Future FE Engineer</span>
-      </div>
-      <div class="hero-ctas">
-        <button class="btn-primary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">View Services</button>
-        <button class="btn-ghost" onclick="document.getElementById('portfolio').scrollIntoView({behavior:'smooth'})">See My Work</button>
-      </div>
-    </div>
-    <div class="hero-art">
-      <svg class="circuit-svg" viewBox="0 0 320 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- PCB traces -->
-        <rect x="20" y="20" width="280" height="260" rx="8" fill="#13161d" stroke="rgba(232,184,75,0.15)" stroke-width="1"/>
-        <!-- Main traces -->
-        <polyline points="60,80 120,80 120,150 200,150" stroke="rgba(232,184,75,0.4)" stroke-width="1.5" fill="none"/>
-        <polyline points="200,150 200,220 140,220" stroke="rgba(232,184,75,0.4)" stroke-width="1.5" fill="none"/>
-        <polyline points="60,140 100,140 100,200 140,200 140,220" stroke="rgba(61,217,179,0.35)" stroke-width="1.5" fill="none"/>
-        <polyline points="200,80 240,80 240,200 220,200" stroke="rgba(91,143,232,0.35)" stroke-width="1.5" fill="none"/>
-        <polyline points="120,80 120,50 200,50 200,80" stroke="rgba(232,184,75,0.25)" stroke-width="1" fill="none" stroke-dasharray="4 3"/>
-        <!-- IC chip -->
-        <rect x="130" y="110" width="60" height="80" rx="4" fill="#1a1e27" stroke="rgba(232,184,75,0.5)" stroke-width="1"/>
-        <text x="160" y="152" fill="rgba(232,184,75,0.7)" font-family="monospace" font-size="9" text-anchor="middle">MCU</text>
-        <!-- IC pins -->
-        <line x1="130" y1="125" x2="120" y2="125" stroke="rgba(232,184,75,0.6)" stroke-width="1"/>
-        <line x1="130" y1="135" x2="120" y2="135" stroke="rgba(232,184,75,0.6)" stroke-width="1"/>
-        <line x1="130" y1="145" x2="120" y2="145" stroke="rgba(232,184,75,0.6)" stroke-width="1"/>
-        <line x1="130" y1="155" x2="120" y2="155" stroke="rgba(232,184,75,0.6)" stroke-width="1"/>
-        <line x1="130" y1="165" x2="120" y2="165" stroke="rgba(232,184,75,0.6)" stroke-width="1"/>
-        <line x1="190" y1="125" x2="200" y2="125" stroke="rgba(232,184,75,0.6)" stroke-width="1"/>
-        <line x1="190" y1="135" x2="200" y2="135" stroke="rgba(232,184,75,0.6)" stroke-width="1"/>
-        <line x1="190" y1="145" x2="200" y2="145" stroke="rgba(232,184,75,0.6)" stroke-width="1"/>
-        <line x1="190" y1="155" x2="200" y2="155" stroke="rgba(232,184,75,0.6)" stroke-width="1"/>
-        <line x1="190" y1="165" x2="200" y2="165" stroke="rgba(232,184,75,0.6)" stroke-width="1"/>
-        <!-- Capacitors -->
-        <rect x="52" y="68" width="16" height="24" rx="2" fill="#1a1e27" stroke="rgba(61,217,179,0.5)" stroke-width="1"/>
-        <line x1="56" y1="76" x2="64" y2="76" stroke="rgba(61,217,179,0.7)" stroke-width="1.5"/>
-        <line x1="56" y1="80" x2="64" y2="80" stroke="rgba(61,217,179,0.7)" stroke-width="1.5"/>
-        <!-- Resistors -->
-        <rect x="215" y="86" width="34" height="12" rx="2" fill="#1a1e27" stroke="rgba(91,143,232,0.5)" stroke-width="1"/>
-        <text x="232" y="95" fill="rgba(91,143,232,0.6)" font-family="monospace" font-size="7" text-anchor="middle">10k</text>
-        <!-- Via holes -->
-        <circle cx="120" cy="80" r="4" fill="#0d0f14" stroke="rgba(232,184,75,0.5)" stroke-width="1"/>
-        <circle cx="120" cy="80" r="1.5" fill="rgba(232,184,75,0.4)"/>
-        <circle cx="200" cy="150" r="4" fill="#0d0f14" stroke="rgba(232,184,75,0.5)" stroke-width="1"/>
-        <circle cx="200" cy="150" r="1.5" fill="rgba(232,184,75,0.4)"/>
-        <circle cx="200" cy="80" r="4" fill="#0d0f14" stroke="rgba(91,143,232,0.5)" stroke-width="1"/>
-        <circle cx="200" cy="80" r="1.5" fill="rgba(91,143,232,0.4)"/>
-        <!-- Connector -->
-        <rect x="44" y="196" width="12" height="36" rx="2" fill="#1a1e27" stroke="rgba(232,184,75,0.4)" stroke-width="1"/>
-        <circle cx="50" cy="204" r="2" fill="rgba(232,184,75,0.3)"/>
-        <circle cx="50" cy="214" r="2" fill="rgba(232,184,75,0.3)"/>
-        <circle cx="50" cy="224" r="2" fill="rgba(232,184,75,0.3)"/>
-        <!-- Star logo center -->
-        <text x="265" y="258" fill="rgba(232,184,75,0.2)" font-family="monospace" font-size="11">★</text>
-      </svg>
-    </div>
+<section id="hero">
+  <div class="hero-watermark">&#9733;</div>
+  <div class="hero-eyebrow">Engineering Portfolio &amp; Services &nbsp;&#9733;&nbsp; CAD &middot; BIM &middot; PCB &middot; Embedded &middot; Documentation</div>
+  <h1 class="hero-title">
+    Precision<br/><em>Engineering</em><br/>Design
+  </h1>
+  <div class="hero-rule"></div>
+  <p class="hero-subtitle">
+    Full-spectrum CAD, electrical, BIM, and embedded services &mdash; from concept to deliverable-ready documentation.
+  </p>
+  <div class="hero-pills">
+    <span class="pill">AutoCAD</span>
+    <span class="pill">SolidWorks</span>
+    <span class="pill">MasterCAM</span>
+    <span class="pill">Altium Designer</span>
+    <span class="pill">Revit</span>
+    <span class="pill">Electrical CAD</span>
+    <span class="pill">BIM</span>
+    <span class="pill">Embedded Systems</span>
+    <span class="pill">VHDL / Verilog</span>
   </div>
-</div>
-
-<!-- TRUST BAR -->
-<div class="trust-bar">
-  <div class="trust-item"><span class="trust-icon">✦</span> KiCad & Altium-Compatible Deliverables</div>
-  <div class="trust-item"><span class="trust-icon">✦</span> 24–72 hr Turnaround</div>
-  <div class="trust-item"><span class="trust-icon">✦</span> English & Spanish Services</div>
-  <div class="trust-item"><span class="trust-icon">✦</span> Fully Remote · Worldwide</div>
-</div>
-
-<!-- SERVICES -->
-<section id="services">
-  <div class="section-label">What I Do</div>
-  <h2>Engineering <em>Services</em></h2>
-  <p class="section-sub">Professional-grade deliverables built by a rising senior EE student with real-world project experience — at freelance-friendly prices while I grow my client base.</p>
-
-  <div class="services-grid">
-    <div class="service-card">
-      <div class="service-icon">📐</div>
-      <h3>Circuit Schematic Design</h3>
-      <p>Clean, annotated, production-ready schematics for your project. Includes component selection recommendations and design review notes. Delivered in PDF + native format.</p>
-      <div class="service-price">$35 – $120 <span>/ schematic</span></div>
-      <div class="service-tag">Most Popular</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🔌</div>
-      <h3>Single-Layer PCB Layout</h3>
-      <p>Optimized 1-layer PCB layout with proper trace routing, clearance rules, and design-for-manufacture principles. Delivered as Gerber files ready for fab.</p>
-      <div class="service-price">$50 – $150 <span>/ board</span></div>
-      <div class="service-tag">Fab-Ready Output</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🧾</div>
-      <h3>BOM Procurement & Optimization</h3>
-      <p>I'll source your Bill of Materials from Digi-Key, Mouser, LCSC, and AliExpress — finding equivalent or cheaper components without sacrificing spec. Save 20–60% on parts.</p>
-      <div class="service-price">$25 – $80 <span>/ BOM</span></div>
-      <div class="service-tag">Avg. 40% Cost Savings</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">💬</div>
-      <h3>Design Consulting (1-on-1)</h3>
-      <p>60-minute video call to review your design, troubleshoot issues, recommend components, or plan your next project. Ideal for hobbyists, students, and early-stage startups.</p>
-      <div class="service-price">$30 <span>/ hour</span></div>
-      <div class="service-tag">Remote · Zoom / Google Meet</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">⚡</div>
-      <h3>Power Conversion Review</h3>
-      <p>Voltage regulator selection, efficiency analysis, and thermal review for your power supply or conversion circuit. Buck, boost, LDO — I'll make sure your power design is solid.</p>
-      <div class="service-price">$40 – $100 <span>/ review</span></div>
-      <div class="service-tag">Specialized Service</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">📦</div>
-      <h3>Full Project Bundle</h3>
-      <p>Schematic + PCB layout + optimized BOM + one revision round + 30-min review call. Everything you need to take a design from concept to fabrication, in one package.</p>
-      <div class="service-price">$150 – $350 <span>/ project</span></div>
-      <div class="service-tag">Best Value</div>
-    </div>
-  </div>
-
-  <div class="pricing-callout">
-    <h3>Early Adopter Pricing — Limited Time</h3>
-    <p>These rates are intentionally low while I build my client portfolio. Prices will increase as I gain more testimonials. Lock in now and you'll always be grandfathered into my lowest rates.</p>
-    <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request a Custom Quote</button>
-  </div>
-</section>
-
-<!-- PRODUCTS -->
-<section id="products">
-  <div class="section-label">Software & Hardware</div>
-  <h2>Star Electronics <em>Products</em></h2>
-  <p class="section-sub">Tools and hardware I'm developing to solve real problems in the design workflow — built with engineers and makers in mind.</p>
-
-  <div class="products-grid">
-    <div class="product-card featured">
-      <span class="product-badge badge-gold">⭐ Flagship Product</span>
-      <h3>StarPower Interface</h3>
-      <p>A configurable power conversion module for prototypers — supports multiple input/output voltage rails, onboard protection circuits, and breadboard-friendly form factor. Ideal for engineers who need reliable bench power without the bulk.</p>
-      <div class="product-price"><span class="old">$45</span>$29 <span style="font-size:12px;color:var(--text-dim);font-family:inherit;font-weight:400;">introductory</span></div>
-    </div>
-    <div class="product-card">
-      <span class="product-badge badge-teal">Software Tool</span>
-      <h3>BOM Checker App</h3>
-      <p>Upload your Bill of Materials and instantly check for discontinued parts, find cheaper substitutes across major distributors, and get availability alerts. Built for KiCad and CSV exports.</p>
-      <div class="product-price">$9 <span style="font-size:12px;color:var(--text-dim);font-family:inherit;font-weight:400;">/ month beta</span></div>
-    </div>
-    <div class="product-card">
-      <span class="product-badge badge-blue">In Development</span>
-      <h3>Design Starter Templates</h3>
-      <p>Ready-to-use schematic templates for common circuits — motor drivers, sensor interfaces, microcontroller breakouts, and power regulation. Download, customize, ship faster.</p>
-      <div class="product-price">$5 – $15 <span style="font-size:12px;color:var(--text-dim);font-family:inherit;font-weight:400;">/ template</span></div>
-    </div>
+  <div class="hero-ctas">
+    <a href="#services" class="btn-primary">View Services</a>
+    <a href="#contact" class="btn-outline">Get a Quote</a>
   </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="about-grid">
-    <div class="about-photo">
-      <div class="about-initials">SE</div>
-      <div class="about-photo-label">
-        <strong>Founder & Lead Engineer</strong>
-        Rising Senior · Electrical Engineering · UTEP
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="section-tag">About</div>
+        <h2 class="sec-heading">Engineering Solutions <em>Built to Spec</em></h2>
+        <div class="sec-rule"></div>
+        <p>Star Electronics delivers professional-grade engineering design and documentation services for clients ranging from startups to established firms. Specializing in multi-discipline CAD, electrical systems, microelectronics, embedded design, and BIM coordination.</p>
+        <p>Expertise gained through academic engineering work at the University of Texas at El Paso and professional engagements with Siemens EDA and Microsoft. Every deliverable meets real-world engineering standards: clean, annotated, and production-ready.</p>
+        <p>Currently available for freelance and contract engagements. Open to remote collaboration worldwide.</p>
+        <div class="skill-bars">
+          <div>
+            <div class="sk-header"><span>2D Drafting &mdash; AutoCAD</span><span>95%</span></div>
+            <div class="sk-track"><div class="sk-fill" style="width:95%"></div></div>
+          </div>
+          <div>
+            <div class="sk-header"><span>3D Mechanical &mdash; SolidWorks</span><span>90%</span></div>
+            <div class="sk-track"><div class="sk-fill" style="width:90%"></div></div>
+          </div>
+          <div>
+            <div class="sk-header"><span>PCB Design &mdash; Altium Designer</span><span>85%</span></div>
+            <div class="sk-track"><div class="sk-fill" style="width:85%"></div></div>
+          </div>
+          <div>
+            <div class="sk-header"><span>BIM &amp; Architecture &mdash; Revit</span><span>80%</span></div>
+            <div class="sk-track"><div class="sk-fill" style="width:80%"></div></div>
+          </div>
+          <div>
+            <div class="sk-header"><span>Embedded Systems &mdash; C / VHDL</span><span>82%</span></div>
+            <div class="sk-track"><div class="sk-fill" style="width:82%"></div></div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div>
-      <div class="section-label">About the Founder</div>
-      <h2>Engineering with <em>Purpose.</em></h2>
-      <p style="color:var(--text-muted);font-size:15px;margin-bottom:1rem;">Hi! I'm a 22-year-old Mexican-American electrical engineering student at the University of Texas at El Paso — a rising senior on track to become a licensed FE engineer and electrician's apprentice.</p>
-      <p style="color:var(--text-muted);font-size:15px;">I started Star Electronics to make professional-grade circuit design accessible and affordable. Every project I take on gets real engineering attention — not templates or guesswork. I bring coursework, hands-on lab experience, and a passion for clean design to every deliverable.</p>
-      <div class="stat-row">
-        <div class="stat-item"><div class="stat-num">3+</div><div class="stat-label">Years of EE coursework</div></div>
-        <div class="stat-item"><div class="stat-num">FE</div><div class="stat-label">Engineer path (in progress)</div></div>
-        <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Languages served</div></div>
+      <div class="reveal" style="display:flex;flex-direction:column;gap:0;">
+        <div class="stat-row">
+          <div class="stat-box"><div class="stat-num">6+</div><div class="stat-lbl">Software Platforms</div></div>
+          <div class="stat-box"><div class="stat-num">100%</div><div class="stat-lbl">Deliverable Ready</div></div>
+          <div class="stat-box"><div class="stat-num">Multi</div><div class="stat-lbl">Discipline Expertise</div></div>
+          <div class="stat-box"><div class="stat-num">Fast</div><div class="stat-lbl">Turnaround</div></div>
+        </div>
+        <div class="affil-box">
+          <div class="affil-lbl">Affiliated With &#9733;</div>
+          <div class="affil-item">University of Texas at El Paso (UTEP)</div>
+          <div class="affil-item">Siemens EDA</div>
+          <div class="affil-item">Microsoft</div>
+        </div>
       </div>
-      <div class="bilingual-flag">🇺🇸 English &nbsp;·&nbsp; 🇲🇽 Español — Servicios completamente bilingües disponibles</div>
     </div>
   </div>
 </section>
 
-<!-- PORTFOLIO + BLOG -->
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-tag reveal">Services</div>
+    <h2 class="sec-heading reveal">What I <em>Deliver</em></h2>
+    <div class="sec-rule reveal"></div>
+    <p class="sec-lead reveal">End-to-end engineering services across mechanical drafting, microelectronics, embedded systems, electrical design, and BIM documentation.</p>
+
+    <div class="services-categories">
+
+      <div class="reveal">
+        <div class="svc-cat-title"><span class="cat-star">&#9733;</span> Drafting &amp; CAD Design</div>
+        <div class="svc-grid">
+          <div class="svc-card">
+            <h4 class="svc-title">2D Technical Drafting</h4>
+            <div class="svc-desc">Floor plans, assembly drawings, detail views, section cuts, and dimensioned schematics produced to ANSI/ISO standards with full title blocks and revision history.</div>
+            <div class="svc-tools"><span class="svc-tool">AutoCAD</span><span class="svc-tool">DWG / DXF</span><span class="svc-tool">GD&amp;T</span></div>
+          </div>
+          <div class="svc-card">
+            <h4 class="svc-title">3D Mechanical Modeling</h4>
+            <div class="svc-desc">Parametric part modeling, assemblies, motion studies, exploded views, and production-ready models exported for manufacturing or 3D printing.</div>
+            <div class="svc-tools"><span class="svc-tool">SolidWorks</span><span class="svc-tool">STEP / STL</span><span class="svc-tool">Assemblies</span></div>
+          </div>
+          <div class="svc-card">
+            <h4 class="svc-title">Additional Assembly Pieces</h4>
+            <div class="svc-desc">Modeling and drafting of supplemental or missing assembly components, mating parts, brackets, and hardware to complete existing design packages.</div>
+            <div class="svc-tools"><span class="svc-tool">SolidWorks</span><span class="svc-tool">AutoCAD</span><span class="svc-tool">MasterCAM</span></div>
+          </div>
+          <div class="svc-card">
+            <h4 class="svc-title">CNC &amp; CAM Programming</h4>
+            <div class="svc-desc">Toolpath generation, G-code output, fixture design, and machining simulation for milling, turning, and multi-axis CNC operations.</div>
+            <div class="svc-tools"><span class="svc-tool">MasterCAM</span><span class="svc-tool">G-Code</span><span class="svc-tool">CNC</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="svc-cat-title"><span class="cat-star">&#9733;</span> Microelectronics &amp; PCB Design</div>
+        <div class="svc-grid">
+          <div class="svc-card">
+            <h4 class="svc-title">PCB Layout &amp; Schematic Capture</h4>
+            <div class="svc-desc">Professional PCB design from schematic capture through layout, signal integrity review, DFM analysis, and complete Gerber / ODB++ file generation.</div>
+            <div class="svc-tools"><span class="svc-tool">Altium Designer</span><span class="svc-tool">Gerber</span><span class="svc-tool">DFM Review</span></div>
+          </div>
+          <div class="svc-card">
+            <h4 class="svc-title">Schematic Review &amp; Verification</h4>
+            <div class="svc-desc">Independent audit of existing schematics for design errors, netlist inconsistencies, component value checks, and compliance with design rules.</div>
+            <div class="svc-tools"><span class="svc-tool">Altium</span><span class="svc-tool">ERC</span><span class="svc-tool">Schematic Review</span></div>
+          </div>
+          <div class="svc-card">
+            <h4 class="svc-title">Component &amp; BOM Management</h4>
+            <div class="svc-desc">Full bill of materials creation, component sourcing cross-reference, lifecycle status verification, and supplier data integration.</div>
+            <div class="svc-tools"><span class="svc-tool">BOM</span><span class="svc-tool">Component Library</span><span class="svc-tool">Sourcing</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="svc-cat-title"><span class="cat-star">&#9733;</span> Embedded Systems &amp; Firmware</div>
+        <div class="svc-grid">
+          <div class="svc-card">
+            <h4 class="svc-title">Microcontroller Firmware</h4>
+            <div class="svc-desc">Bare-metal and RTOS-based firmware for AVR, ARM Cortex-M, and PIC platforms. Peripheral drivers, communication protocols (I2C, SPI, UART), and low-power design.</div>
+            <div class="svc-tools"><span class="svc-tool">C / C++</span><span class="svc-tool">ARM</span><span class="svc-tool">Arduino</span><span class="svc-tool">RTOS</span></div>
+          </div>
+          <div class="svc-card">
+            <h4 class="svc-title">FPGA &amp; Digital Logic</h4>
+            <div class="svc-desc">HDL design, synthesis, and simulation for digital logic. State machines, custom IP cores, and hardware-accelerated processing pipelines.</div>
+            <div class="svc-tools"><span class="svc-tool">VHDL</span><span class="svc-tool">Verilog</span><span class="svc-tool">Xilinx</span><span class="svc-tool">ModelSim</span></div>
+          </div>
+          <div class="svc-card">
+            <h4 class="svc-title">System Integration &amp; Testing</h4>
+            <div class="svc-desc">Hardware/firmware bring-up, debugging, oscilloscope analysis, and test documentation for embedded systems during prototype and production validation.</div>
+            <div class="svc-tools"><span class="svc-tool">Debugging</span><span class="svc-tool">Oscilloscope</span><span class="svc-tool">Test Reports</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="svc-cat-title"><span class="cat-star">&#9733;</span> Electrical &amp; Residential Design</div>
+        <div class="svc-grid">
+          <div class="svc-card">
+            <h4 class="svc-title">Residential Electrical Plans</h4>
+            <div class="svc-desc">Code-compliant residential electrical drawings including panel schedules, load calculations, lighting plans, receptacle layouts, and single-line diagrams.</div>
+            <div class="svc-tools"><span class="svc-tool">AutoCAD Electrical</span><span class="svc-tool">NEC</span><span class="svc-tool">Load Calc</span></div>
+          </div>
+          <div class="svc-card">
+            <h4 class="svc-title">Industrial &amp; Control Schematics</h4>
+            <div class="svc-desc">Single-line diagrams, panel layouts, wiring schematics, control circuits, ladder logic documentation, and motor control center drawings.</div>
+            <div class="svc-tools"><span class="svc-tool">Electrical CAD</span><span class="svc-tool">EPLAN</span><span class="svc-tool">PLC / Ladder</span></div>
+          </div>
+          <div class="svc-card">
+            <h4 class="svc-title">Schematic Checking &amp; Redlining</h4>
+            <div class="svc-desc">Detailed review of electrical schematics against specifications and code requirements. Delivers annotated redline markups with structured correction notes.</div>
+            <div class="svc-tools"><span class="svc-tool">Schematic Review</span><span class="svc-tool">Redlines</span><span class="svc-tool">IEC / ANSI</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="svc-cat-title"><span class="cat-star">&#9733;</span> BIM, Architecture &amp; Documentation</div>
+        <div class="svc-grid">
+          <div class="svc-card">
+            <h4 class="svc-title">BIM Modeling &amp; Coordination</h4>
+            <div class="svc-desc">Full BIM models for architectural, structural, or MEP disciplines. Clash detection, federated model review, and construction document sets.</div>
+            <div class="svc-tools"><span class="svc-tool">Revit</span><span class="svc-tool">BIM 360</span><span class="svc-tool">IFC</span><span class="svc-tool">Navisworks</span></div>
+          </div>
+          <div class="svc-card">
+            <h4 class="svc-title">BIM Bills Review &amp; Takeoffs</h4>
+            <div class="svc-desc">Audit and verification of BIM-generated bills of quantities, quantity takeoffs, and material schedules against model data and project specifications.</div>
+            <div class="svc-tools"><span class="svc-tool">BOQ Review</span><span class="svc-tool">Revit Schedules</span><span class="svc-tool">QTO</span></div>
+          </div>
+          <div class="svc-card">
+            <h4 class="svc-title">Technical Project Documentation</h4>
+            <div class="svc-desc">Structured engineering packages: O&amp;M manuals, as-built drawings, technical reports, BOMs, specification sheets, and project handoff documentation.</div>
+            <div class="svc-tools"><span class="svc-tool">As-Built</span><span class="svc-tool">O&amp;M Manuals</span><span class="svc-tool">Reports</span><span class="svc-tool">BOM</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
 <section id="portfolio">
-  <div class="section-label">Experience & Work</div>
-  <h2>Portfolio & <em>Blog</em></h2>
-  <p class="section-sub">A look at past projects, industry experience, and engineering write-ups — updated regularly as I complete new work.</p>
+  <div class="section-inner">
+    <div class="section-tag reveal">Portfolio</div>
+    <h2 class="sec-heading reveal">Selected <em>Work</em></h2>
+    <div class="sec-rule reveal"></div>
+    <p class="sec-lead reveal">Projects organized by institution and company. Replace the placeholder descriptions and thumbnails with screenshots from your actual work.</p>
 
-  <div class="tab-bar">
-    <button class="tab active" onclick="switchTab('tab-portfolio', this)">Work & Experience</button>
-    <button class="tab" onclick="switchTab('tab-blog', this)">Engineering Blog</button>
-  </div>
+    <div class="portfolio-orgs">
 
-  <div id="tab-portfolio" class="tab-content active">
-    <div class="blog-grid">
-      <div class="blog-card">
-        <div class="blog-thumb">🏭</div>
-        <div class="blog-body">
-          <div class="blog-meta">Industry Experience</div>
-          <h3>Power Systems Work — [Previous Company]</h3>
-          <p>Design and validation work on power conversion circuits during internship/co-op. Schematic review, lab testing, and BOM optimization.</p>
+      <!-- UTEP -->
+      <div class="org-block reveal">
+        <div class="org-header">
+          <h3 class="org-name">University of Texas at El Paso &nbsp;&#9733;</h3>
+          <span class="org-type">Academic Projects &mdash; Engineering</span>
+        </div>
+        <div class="proj-grid">
+          <div class="proj-card">
+            <div class="proj-thumb">
+              <svg viewBox="0 0 280 158" width="280" height="158" fill="none" stroke="#2779a7" stroke-width="1.2">
+                <rect x="20" y="20" width="240" height="118" rx="2"/>
+                <line x1="20" y1="79" x2="260" y2="79"/>
+                <line x1="140" y1="20" x2="140" y2="138"/>
+                <circle cx="140" cy="79" r="28"/><circle cx="140" cy="79" r="12"/>
+              </svg>
+              <span class="proj-thumb-lbl">AutoCAD &middot; 2D Mechanical</span>
+            </div>
+            <div class="proj-body">
+              <h4 class="proj-title">Machine Design &mdash; Bracket Assembly Drawing</h4>
+              <div class="proj-desc">Full GD&T annotated assembly drawing for a structural bracket with section views, bill of materials, and title block per ANSI standards.</div>
+              <div class="proj-tags"><span class="proj-tag">AutoCAD</span><span class="proj-tag">GD&T</span><span class="proj-tag">Machine Design</span></div>
+            </div>
+          </div>
+          <div class="proj-card">
+            <div class="proj-thumb">
+              <svg viewBox="0 0 280 158" width="280" height="158" fill="none" stroke="#2779a7" stroke-width="1.2">
+                <rect x="30" y="28" width="80" height="52" rx="2"/>
+                <rect x="170" y="44" width="80" height="64" rx="2"/>
+                <rect x="80" y="100" width="120" height="34" rx="2"/>
+                <line x1="110" y1="54" x2="170" y2="64"/>
+                <line x1="140" y1="100" x2="140" y2="108"/>
+              </svg>
+              <span class="proj-thumb-lbl">SolidWorks &middot; 3D Assembly</span>
+            </div>
+            <div class="proj-body">
+              <h4 class="proj-title">Senior Design &mdash; Electromechanical Housing</h4>
+              <div class="proj-desc">Parametric 3D model of an electronics enclosure with ventilation analysis, sheet metal flat patterns, and full assembly drawing package.</div>
+              <div class="proj-tags"><span class="proj-tag">SolidWorks</span><span class="proj-tag">Sheet Metal</span><span class="proj-tag">Senior Design</span></div>
+            </div>
+          </div>
+          <div class="proj-card">
+            <div class="proj-thumb">
+              <svg viewBox="0 0 280 158" width="280" height="158" fill="none" stroke="#2779a7" stroke-width="1.2">
+                <rect x="20" y="20" width="240" height="118" rx="2"/>
+                <rect x="30" y="30" width="25" height="14" rx="1"/><rect x="30" y="52" width="25" height="14" rx="1"/><rect x="30" y="74" width="25" height="14" rx="1"/>
+                <rect x="115" y="36" width="50" height="30" rx="1"/><rect x="115" y="90" width="50" height="24" rx="1"/>
+                <line x1="55" y1="37" x2="115" y2="50"/><line x1="55" y1="59" x2="115" y2="50"/><line x1="55" y1="81" x2="115" y2="102"/>
+              </svg>
+              <span class="proj-thumb-lbl">VHDL &middot; FPGA</span>
+            </div>
+            <div class="proj-body">
+              <h4 class="proj-title">Digital Systems &mdash; UART Controller on FPGA</h4>
+              <div class="proj-desc">VHDL implementation of a full-duplex UART controller synthesized and verified on a Xilinx FPGA board with testbench simulation documentation.</div>
+              <div class="proj-tags"><span class="proj-tag">VHDL</span><span class="proj-tag">Xilinx</span><span class="proj-tag">Digital Systems</span></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="blog-card">
-        <div class="blog-thumb">🔬</div>
-        <div class="blog-body">
-          <div class="blog-meta">Academic Project</div>
-          <h3>Senior Design: [Project Title]</h3>
-          <p>Capstone project involving full design cycle: requirements, schematic, PCB layout, prototype build, and final documentation.</p>
-        </div>
-      </div>
-      <div class="blog-card">
-        <div class="blog-thumb">⚡</div>
-        <div class="blog-body">
-          <div class="blog-meta">Personal Project</div>
-          <h3>Custom Power Supply Build</h3>
-          <p>Designed a variable bench power supply from scratch — schematic, 1-layer PCB, and BOM sourced for under $12 total.</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div id="tab-blog" class="tab-content">
-    <div class="blog-grid">
-      <div class="blog-card">
-        <div class="blog-thumb">📝</div>
-        <div class="blog-body">
-          <div class="blog-meta">April 2025 · Tutorial</div>
-          <h3>How I Cut a BOM Cost by 45% Using LCSC</h3>
-          <p>A real walkthrough of substituting brand-name components with pin-compatible alternatives — without sacrificing a single spec.</p>
+      <!-- SIEMENS EDA -->
+      <div class="org-block reveal">
+        <div class="org-header">
+          <h3 class="org-name">Siemens EDA &nbsp;&#9733;</h3>
+          <span class="org-type">Professional Experience &mdash; Electronic Design Automation</span>
+        </div>
+        <div class="proj-grid">
+          <div class="proj-card">
+            <div class="proj-thumb">
+              <svg viewBox="0 0 280 158" width="280" height="158" fill="none" stroke="#15526e" stroke-width="1.2">
+                <rect x="20" y="20" width="240" height="118" rx="2"/>
+                <rect x="35" y="34" width="30" height="18" rx="1"/><rect x="35" y="62" width="30" height="18" rx="1"/><rect x="35" y="90" width="30" height="18" rx="1"/>
+                <rect x="120" y="42" width="40" height="28" rx="1"/><rect x="120" y="92" width="40" height="22" rx="1"/>
+                <rect x="215" y="55" width="30" height="46" rx="1"/>
+                <line x1="65" y1="43" x2="120" y2="55"/><line x1="65" y1="71" x2="120" y2="55"/>
+                <line x1="160" y1="55" x2="215" y2="70"/>
+              </svg>
+              <span class="proj-thumb-lbl">Altium &middot; PCB Design</span>
+            </div>
+            <div class="proj-body">
+              <h4 class="proj-title">Multi-Layer PCB Verification Workflow</h4>
+              <div class="proj-desc">Developed and validated a PCB design review workflow for multi-layer boards, including DRC automation and schematic-to-layout netlist comparison tools.</div>
+              <div class="proj-tags"><span class="proj-tag">Altium</span><span class="proj-tag">DRC</span><span class="proj-tag">EDA Workflow</span></div>
+            </div>
+          </div>
+          <div class="proj-card">
+            <div class="proj-thumb">
+              <svg viewBox="0 0 280 158" width="280" height="158" fill="none" stroke="#15526e" stroke-width="1.2">
+                <rect x="20" y="15" width="240" height="128" rx="2"/><line x1="20" y1="34" x2="260" y2="34"/>
+                <rect x="30" y="44" width="220" height="16" rx="1"/>
+                <rect x="30" y="68" width="160" height="10" rx="1"/><rect x="30" y="84" width="220" height="10" rx="1"/>
+                <rect x="30" y="100" width="180" height="10" rx="1"/>
+                <rect x="30" y="116" width="220" height="22" rx="1"/>
+                <line x1="30" y1="128" x2="250" y2="128"/><line x1="110" y1="116" x2="110" y2="138"/>
+              </svg>
+              <span class="proj-thumb-lbl">Documentation &middot; Technical</span>
+            </div>
+            <div class="proj-body">
+              <h4 class="proj-title">EDA Tool User Guides &amp; Documentation</h4>
+              <div class="proj-desc">Authored structured technical user guides and process documentation for EDA software tools, including workflow diagrams and annotated usage examples.</div>
+              <div class="proj-tags"><span class="proj-tag">Technical Writing</span><span class="proj-tag">EDA</span><span class="proj-tag">Documentation</span></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="blog-card">
-        <div class="blog-thumb">🛠</div>
-        <div class="blog-body">
-          <div class="blog-meta">March 2025 · Design</div>
-          <h3>Common Mistakes in 1-Layer PCB Routing</h3>
-          <p>The five layout errors I see most often in beginner designs — and how to fix them before sending Gerbers to the fab house.</p>
+
+      <!-- MICROSOFT -->
+      <div class="org-block reveal">
+        <div class="org-header">
+          <h3 class="org-name">Microsoft &nbsp;&#9733;</h3>
+          <span class="org-type">Professional Experience &mdash; Engineering &amp; Technology</span>
+        </div>
+        <div class="proj-grid">
+          <div class="proj-card">
+            <div class="proj-thumb">
+              <svg viewBox="0 0 280 158" width="280" height="158" fill="none" stroke="#2779a7" stroke-width="1.2">
+                <rect x="20" y="20" width="108" height="54" rx="2"/><rect x="152" y="20" width="108" height="54" rx="2"/>
+                <rect x="20" y="88" width="108" height="54" rx="2"/><rect x="152" y="88" width="108" height="54" rx="2"/>
+                <line x1="128" y1="47" x2="152" y2="47"/><line x1="128" y1="115" x2="152" y2="115"/>
+                <line x1="74" y1="74" x2="74" y2="88"/><line x1="206" y1="74" x2="206" y2="88"/>
+              </svg>
+              <span class="proj-thumb-lbl">Systems &middot; Integration</span>
+            </div>
+            <div class="proj-body">
+              <h4 class="proj-title">Hardware Systems Integration Project</h4>
+              <div class="proj-desc">Contributed to hardware validation and systems integration documentation for a Microsoft hardware initiative, including test plans and as-built documentation.</div>
+              <div class="proj-tags"><span class="proj-tag">Systems Integration</span><span class="proj-tag">Hardware Validation</span><span class="proj-tag">Documentation</span></div>
+            </div>
+          </div>
+          <div class="proj-card">
+            <div class="proj-thumb">
+              <svg viewBox="0 0 280 158" width="280" height="158" fill="none" stroke="#2779a7" stroke-width="1.2">
+                <circle cx="80" cy="79" r="40"/><circle cx="80" cy="79" r="18"/>
+                <circle cx="200" cy="79" r="30"/>
+                <line x1="120" y1="79" x2="170" y2="79"/>
+                <line x1="80" y1="39" x2="80" y2="20"/><line x1="80" y1="119" x2="80" y2="138"/>
+              </svg>
+              <span class="proj-thumb-lbl">Embedded &middot; Firmware</span>
+            </div>
+            <div class="proj-body">
+              <h4 class="proj-title">Embedded Diagnostics &amp; Telemetry Module</h4>
+              <div class="proj-desc">Embedded firmware module for device diagnostics and telemetry data collection implemented over I2C with structured logging and error-reporting protocols.</div>
+              <div class="proj-tags"><span class="proj-tag">Firmware</span><span class="proj-tag">C / C++</span><span class="proj-tag">Diagnostics</span></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="blog-card">
-        <div class="blog-thumb">🌎</div>
-        <div class="blog-body">
-          <div class="blog-meta">Feb 2025 · Career</div>
-          <h3>Working as a Remote EE Freelancer from El Paso</h3>
-          <p>How I set up my remote workflow, tools I use, and lessons learned in my first months as a solo engineering contractor.</p>
+
+      <!-- FREELANCE -->
+      <div class="org-block reveal">
+        <div class="org-header">
+          <h3 class="org-name">Star Electronics &mdash; Independent &nbsp;&#9733;</h3>
+          <span class="org-type">Freelance &amp; Contract Work</span>
+        </div>
+        <div class="proj-grid">
+          <div class="proj-card">
+            <div class="proj-thumb">
+              <svg viewBox="0 0 280 158" width="280" height="158" fill="none" stroke="#2779a7" stroke-width="1.2">
+                <rect x="20" y="20" width="240" height="118" rx="2"/>
+                <line x1="20" y1="79" x2="260" y2="79"/>
+                <rect x="38" y="92" width="58" height="30" rx="1"/><rect x="118" y="92" width="58" height="30" rx="1"/><rect x="198" y="92" width="42" height="30" rx="1"/>
+                <circle cx="58" cy="52" r="15"/><circle cx="138" cy="52" r="20"/><circle cx="218" cy="52" r="12"/>
+              </svg>
+              <span class="proj-thumb-lbl">Electrical CAD &middot; Residential</span>
+            </div>
+            <div class="proj-body">
+              <h4 class="proj-title">Residential Electrical Plan Package</h4>
+              <div class="proj-desc">Complete residential electrical drawing set for permit submission: lighting plan, receptacle plan, panel schedule, and load calculation summary.</div>
+              <div class="proj-tags"><span class="proj-tag">AutoCAD Electrical</span><span class="proj-tag">NEC</span><span class="proj-tag">Permit Drawings</span></div>
+            </div>
+          </div>
+          <div class="proj-card">
+            <div class="proj-thumb">
+              <svg viewBox="0 0 280 158" width="280" height="158" fill="none" stroke="#2779a7" stroke-width="1.2">
+                <rect x="10" y="10" width="260" height="138" rx="2"/>
+                <rect x="20" y="20" width="116" height="76" rx="1"/>
+                <rect x="146" y="20" width="114" height="48" rx="1"/>
+                <rect x="20" y="110" width="240" height="28" rx="1"/>
+                <rect x="146" y="74" width="50" height="28" rx="1"/>
+                <rect x="204" y="74" width="56" height="28" rx="1"/>
+              </svg>
+              <span class="proj-thumb-lbl">Revit &middot; BIM Bills</span>
+            </div>
+            <div class="proj-body">
+              <h4 class="proj-title">BIM Quantity Schedule Audit</h4>
+              <div class="proj-desc">Audit of a commercial BIM model&rsquo;s Revit-generated quantity schedules against project specifications, with correction notes and revised BOM deliverable.</div>
+              <div class="proj-tags"><span class="proj-tag">Revit</span><span class="proj-tag">BOQ Review</span><span class="proj-tag">BIM</span></div>
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<!-- FUTURE SERVICES -->
-<section>
-  <div class="section-label">Roadmap</div>
-  <h2>Coming <em>Soon</em></h2>
-  <p class="section-sub">Expanding into licensed in-person services as I complete my apprenticeship — available in El Paso, TX.</p>
-  <div class="future-grid">
-    <div class="future-card">
-      <div class="future-num">01</div>
-      <h3>Texas Electrician Apprentice License</h3>
-      <p>Licensed residential electrical work — wiring, panel upgrades, outlets, and code-compliant installs. In-person, El Paso only.</p>
+<!-- BLOG -->
+<section id="blog">
+  <div class="section-inner">
+    <div class="section-tag reveal">Blog</div>
+    <h2 class="sec-heading reveal">Notes &amp; <em>Writings</em></h2>
+    <div class="sec-rule reveal"></div>
+    <p class="sec-lead reveal">Engineering insights, tutorials, and reflections on CAD, electronics, and the profession. Add your own posts by editing this section.</p>
+    <div class="blog-grid reveal">
+
+      <div class="blog-card">
+        <span class="blog-cat">CAD &amp; Drafting</span>
+        <div class="blog-date">Coming Soon</div>
+        <h4 class="blog-title">Getting Started with GD&amp;T: A Practical Guide for CAD Draftsmen</h4>
+        <div class="blog-excerpt">Geometric dimensioning and tolerancing can feel overwhelming at first. This post breaks down the most commonly used symbols and how to apply them correctly in AutoCAD drawings for real manufacturing contexts.</div>
+        <a href="#blog" class="blog-more">Read More</a>
+      </div>
+
+      <div class="blog-card">
+        <span class="blog-cat">Microelectronics</span>
+        <div class="blog-date">Coming Soon</div>
+        <h4 class="blog-title">PCB Layout Best Practices: What Altium Beginners Miss</h4>
+        <div class="blog-excerpt">From ground plane strategy to via stitching and differential pair routing, this post covers the layout decisions that separate a clean board from one that fails EMI or signal integrity testing at prototype stage.</div>
+        <a href="#blog" class="blog-more">Read More</a>
+      </div>
+
+      <div class="blog-card">
+        <span class="blog-cat">BIM &amp; Documentation</span>
+        <div class="blog-date">Coming Soon</div>
+        <h4 class="blog-title">Reading BIM Bills of Quantities: A Field Engineer&rsquo;s Checklist</h4>
+        <div class="blog-excerpt">Reviewing BIM-generated quantity schedules requires more than checking numbers. This post walks through the systematic audit process for verifying Revit schedule outputs against project specifications.</div>
+        <a href="#blog" class="blog-more">Read More</a>
+      </div>
+
+      <div class="blog-card">
+        <span class="blog-cat">Embedded Systems</span>
+        <div class="blog-date">Coming Soon</div>
+        <h4 class="blog-title">VHDL vs Verilog: Which HDL Should You Learn First?</h4>
+        <div class="blog-excerpt">Both hardware description languages have strong communities and support, but they differ meaningfully in syntax philosophy. A practical comparison based on academic and professional FPGA experience.</div>
+        <a href="#blog" class="blog-more">Read More</a>
+      </div>
+
+      <div class="blog-card">
+        <span class="blog-cat">Career</span>
+        <div class="blog-date">Coming Soon</div>
+        <h4 class="blog-title">Building an Engineering Portfolio for LinkedIn: What Actually Works</h4>
+        <div class="blog-excerpt">After working with Siemens EDA and Microsoft, here are the portfolio and profile strategies that generated real client and recruiter interest &mdash; without needing a large following or viral content.</div>
+        <a href="#blog" class="blog-more">Read More</a>
+      </div>
+
+      <div class="blog-card">
+        <span class="blog-cat">AutoCAD</span>
+        <div class="blog-date">Coming Soon</div>
+        <h4 class="blog-title">AutoCAD Productivity: LISP Routines Every Drafter Should Know</h4>
+        <div class="blog-excerpt">Custom AutoLISP routines can dramatically speed up repetitive drafting tasks. This post covers routines for annotation, layer management, and drawing cleanup that I use on a regular basis.</div>
+        <a href="#blog" class="blog-more">Read More</a>
+      </div>
+
     </div>
-    <div class="future-card">
-      <div class="future-num">02</div>
-      <h3>Residential Electrical Design</h3>
-      <p>Load calculations, circuit planning, and code review for homebuilders and renovators in the El Paso metro area.</p>
-    </div>
-    <div class="future-card">
-      <div class="future-num">03</div>
-      <h3>FE Engineer Certification</h3>
-      <p>Expanding service offerings once licensed — including stamped engineering documents and formal project reviews.</p>
-    </div>
-    <div class="future-card">
-      <div class="future-num">04</div>
-      <h3>Multi-Layer PCB Design</h3>
-      <p>Adding 2–4 layer PCB design to the service catalog as I deepen my layout experience and toolchain expertise.</p>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-inner">
+    <div class="section-tag reveal">How It Works</div>
+    <h2 class="sec-heading reveal">My <em>Process</em></h2>
+    <div class="sec-rule reveal"></div>
+    <div class="process-steps reveal">
+      <div class="proc-step">
+        <div class="proc-num">01</div>
+        <h4 class="proc-title">Project Brief</h4>
+        <div class="proc-desc">We discuss scope, deliverable formats, applicable standards, and deadlines. The right questions upfront eliminate costly rework later.</div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-num">02</div>
+        <h4 class="proc-title">Quote &amp; Agreement</h4>
+        <div class="proc-desc">Clear fixed-price or hourly quote with a defined timeline. No hidden fees. Milestone payments available for larger engagements.</div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-num">03</div>
+        <h4 class="proc-title">Design &amp; Modeling</h4>
+        <div class="proc-desc">Core engineering work in your required platform. Progress updates and draft previews keep you informed throughout.</div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-num">04</div>
+        <h4 class="proc-title">Review &amp; Revisions</h4>
+        <div class="proc-desc">Structured revision rounds with annotated redline markups and version control. Your feedback shapes the final output.</div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-num">05</div>
+        <h4 class="proc-title">Final Delivery</h4>
+        <div class="proc-desc">Complete file package in agreed formats &mdash; native files, PDFs, Gerbers, IFC &mdash; with a handoff checklist and post-delivery support.</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-label">Get in Touch</div>
-  <h2>Start Your <em>Project</em></h2>
-  <p class="section-sub">Ready to bring your idea to life? Send me a message and I'll get back to you within 24 hours. Hablo español también.</p>
+  <div class="section-inner">
+    <div class="section-tag reveal">Contact</div>
+    <h2 class="sec-heading reveal">Start a <em>Project</em></h2>
+    <div class="sec-rule reveal"></div>
+    <p class="sec-lead reveal">Ready to work together? Fill out the form and I will respond within 24 hours with a project assessment.</p>
+    <div class="contact-grid">
+      <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input class="form-input" type="text" placeholder="John Smith" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" type="email" placeholder="john@company.com" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Company or Organization</label>
+          <input class="form-input" type="text" placeholder="Optional"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Service Required</label>
+          <select class="form-select form-input">
+            <option value="">Select a service...</option>
+            <optgroup label="Drafting &amp; CAD Design">
+              <option>2D CAD Drafting &mdash; AutoCAD</option>
+              <option>3D Mechanical Modeling &mdash; SolidWorks</option>
+              <option>CNC / CAM Programming &mdash; MasterCAM</option>
+              <option>Additional Assembly Parts</option>
+            </optgroup>
+            <optgroup label="Microelectronics &amp; PCB">
+              <option>PCB Design &mdash; Altium Designer</option>
+              <option>Schematic Review &amp; Verification</option>
+              <option>BOM &amp; Component Management</option>
+            </optgroup>
+            <optgroup label="Embedded Systems">
+              <option>Microcontroller Firmware</option>
+              <option>FPGA &amp; Digital Logic</option>
+              <option>System Integration &amp; Testing</option>
+            </optgroup>
+            <optgroup label="Electrical Design">
+              <option>Residential Electrical Plans</option>
+              <option>Industrial Control Schematics</option>
+              <option>Schematic Checking &amp; Redlining</option>
+            </optgroup>
+            <optgroup label="BIM &amp; Documentation">
+              <option>BIM Modeling &mdash; Revit</option>
+              <option>BIM Bills Review &amp; Takeoffs</option>
+              <option>Technical Project Documentation</option>
+            </optgroup>
+            <option>Multiple Services / Full Project</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Project Details</label>
+          <textarea class="form-textarea" placeholder="Describe your project, deliverables needed, timeline, and any specific requirements..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Estimated Budget</label>
+            <select class="form-select form-input">
+              <option value="">Select range...</option>
+              <option>Under $200</option>
+              <option>$200 &ndash; $500</option>
+              <option>$500 &ndash; $1,500</option>
+              <option>$1,500 &ndash; $5,000</option>
+              <option>$5,000+</option>
+              <option>Open to discuss</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Timeline</label>
+            <select class="form-select form-input">
+              <option value="">How soon?</option>
+              <option>ASAP (Rush)</option>
+              <option>Within 1 week</option>
+              <option>1&ndash;2 weeks</option>
+              <option>2&ndash;4 weeks</option>
+              <option>Flexible</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" style="align-self:flex-start;border:none;cursor:pointer;">Send Request</button>
+        <div id="form-status" style="font-size:0.8rem;color:var(--blue-deep);font-style:italic;display:none;">Message sent &mdash; I will respond within 24 hours.</div>
+      </form>
 
-  <div class="contact-grid">
-    <div class="contact-form">
-      <div class="form-row">
-        <div class="form-field"><label>First Name</label><input type="text" placeholder="Ana"/></div>
-        <div class="form-field"><label>Last Name</label><input type="text" placeholder="García"/></div>
-      </div>
-      <div class="form-field"><label>Email</label><input type="email" placeholder="you@example.com"/></div>
-      <div class="form-field">
-        <label>Service Interested In</label>
-        <select style="background:var(--dark3);border:0.5px solid var(--border);border-radius:8px;padding:10px 14px;font-family:inherit;font-size:14px;color:var(--text);outline:none;">
-          <option>Circuit Schematic Design</option>
-          <option>Single-Layer PCB Layout</option>
-          <option>BOM Procurement & Optimization</option>
-          <option>Design Consulting</option>
-          <option>Power Conversion Review</option>
-          <option>Full Project Bundle</option>
-          <option>BOM Checker Software</option>
-          <option>Other / Not Sure Yet</option>
-        </select>
-      </div>
-      <div class="form-field"><label>Tell me about your project</label><textarea placeholder="Brief description, timeline, budget range — any detail helps!"></textarea></div>
-      <button class="btn-primary" style="align-self:flex-start">Send Message →</button>
-    </div>
-    <div class="contact-info">
-      <h3>Let's connect</h3>
-      <div class="contact-item"><span class="contact-item-icon">📍</span>El Paso, TX — serving clients globally via remote</div>
-      <div class="contact-item"><span class="contact-item-icon">🕒</span>Typical response time: within 24 hours</div>
-      <div class="contact-item"><span class="contact-item-icon">🌎</span>All remote work done via email, Zoom, or Google Meet</div>
-      <div class="contact-item"><span class="contact-item-icon">🇲🇽</span>Servicios disponibles en español — no hay problema</div>
-      <div style="margin-top:2rem;background:var(--dark2);border:0.5px solid var(--border-soft);border-radius:var(--radius);padding:1.25rem;">
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:0.75rem;">Not ready to commit yet? Book a free 15-minute discovery call to discuss your project.</p>
-        <button class="btn-ghost" style="font-size:13px;padding:8px 18px;">Schedule Free Call</button>
+      <div class="contact-info reveal">
+        <div class="ci-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div>
+            <div class="ci-lbl">Email</div>
+            <!-- EDIT: your real email -->
+            <div class="ci-val">your.email@example.com</div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></div>
+          <div>
+            <div class="ci-lbl">Response Time</div>
+            <div class="ci-val">Within 24 hours</div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <div>
+            <div class="ci-lbl">Availability</div>
+            <div class="ci-val">Remote &middot; Worldwide &middot; Full Project or Hourly</div>
+          </div>
+        </div>
+        <!-- EDIT: Replace with your real LinkedIn URL and name -->
+        <a href="https://linkedin.com/in/your-profile" target="_blank" class="linkedin-box">
+          <div class="li-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+          <div>
+            <div class="li-lbl">Connect on LinkedIn</div>
+            <!-- EDIT: Replace with your real name -->
+            <div class="li-name">Star Electronics &mdash; View Profile</div>
+          </div>
+        </a>
+        <!-- EDIT: Replace with your GitHub Pages URL -->
+        <div class="github-box">
+          <div class="gh-lbl">GitHub Portfolio &#9733;</div>
+          <div class="gh-url">yourusername.github.io</div>
+          <div class="gh-note">Source files, project documentation, and code available on request.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -687,16 +1042,67 @@
 
 <!-- FOOTER -->
 <footer>
-  <p style="margin-bottom:6px;"><strong>★ Star Electronics</strong> — Remote Engineering Services</p>
-  <p>El Paso, TX · Global Remote · English & Español · © 2025</p>
-  <p style="margin-top:8px;font-size:12px;">Rising Senior, Electrical Engineering · University of Texas at El Paso · Future FE Engineer</p>
+  <div class="footer-logo">&#9733; Star Electronics</div>
+  <div class="footer-copy">&copy; 2025 Star Electronics. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="#hero">Home</a>
+    <a href="#services">Services</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+  </div>
 </footer>
 
 <script>
-function switchTab(id, el) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  el.classList.add('active');
-}
+  // Floating stars
+  const bg = document.getElementById('starsBg');
+  const chars = ['&#9733;','&#9734;','&#10022;'];
+  for (let i = 0; i < 40; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.innerHTML = chars[Math.floor(Math.random() * chars.length)];
+    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${3+Math.random()*5}s;--delay:${Math.random()*7}s;font-size:${7+Math.random()*11}px;`;
+    bg.appendChild(s);
+  }
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'), i*65); });
+  }, {threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Skill bars
+  const barObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        e.target.querySelectorAll('.sk-fill').forEach(f => {
+          const w = f.style.width; f.style.width='0%';
+          setTimeout(()=>f.style.width=w, 120);
+        });
+        barObs.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.3});
+  document.querySelectorAll('.skill-bars').forEach(el => barObs.observe(el));
+
+  // Form
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-status').style.display='block';
+    e.target.querySelectorAll('input,select,textarea').forEach(el=>el.disabled=true);
+    const btn = e.target.querySelector('button');
+    btn.textContent='Sent'; btn.style.background='var(--blue)';
+    // TODO: connect to Formspree, EmailJS, or similar service
+  }
+
+  // Active nav
+  const secs = document.querySelectorAll('section[id]');
+  const navAs = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur='';
+    secs.forEach(s=>{ if(window.scrollY>=s.offsetTop-80) cur=s.id; });
+    navAs.forEach(a=>{ a.style.color = a.getAttribute('href')==='#'+cur ? 'var(--blue-deep)' : ''; });
+  });
 </script>
+</body>
+</html>
